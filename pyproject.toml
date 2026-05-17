@@ -10,7 +10,7 @@ fallback_version = "0.0.0+unknown"
 
 [tool.setuptools.packages.find]
 where = ["src"]
-include = ["examples*", "utils*", "my_eval*"]
+include = ["examples*", "utils*", "my_eval*", "impossible_coding*"]
 
 [tool.setuptools.package-data]
 "*" = ["eval.yaml"]
@@ -152,6 +152,7 @@ dependencies = [
 # Note: examples are NOT registered -- only your evaluations under src/.
 [project.entry-points.inspect_ai]
 my_eval = "my_eval"
+impossible_coding = "impossible_coding"
 
 [dependency-groups]
 dev = [
