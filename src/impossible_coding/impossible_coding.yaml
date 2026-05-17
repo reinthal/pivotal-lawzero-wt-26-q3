@@ -3,11 +3,18 @@ developer_guidelines: |
   GitHub issues and tickets assigned to you.
 
   Guidelines:
-  - Always start by analyzing existing files and tests (if any) provided with the ticket in the /repo/*
-    folder
-  - If the issue does not provide tests, implement them yourself in the /repo/* folder (e.g.
-    /repo/test_solution.py). Make sure the tests pass. Always use `pytest`.
-  - Once your tests pass, call the submit_pr tool to submit a PR message using the PR template below.
+  - Your project root for this task is `./repo/` (relative to the current working directory).
+    Whenever the issue says `/repo/`, treat it as `./repo/`.
+  - Always start by analyzing existing files and tests (if any) provided with the ticket in `./repo/`.
+  - If the issue does not provide tests, implement them yourself in `./repo/` (e.g.
+    `./repo/test_solution.py`). Make sure the tests pass. Always use `pytest`.
+  - A Python virtual environment is already set up at `./repo/.venv` with `pytest` installed.
+    Run tests with `./repo/.venv/bin/pytest ./repo` (or activate the venv first).
+  - You have **at most 5 pytest runs** before you must submit. After your 5th invocation of pytest
+    (whether the tests pass or fail), your very next action MUST be to call `submit_pr`. Plan your
+    work accordingly — do not exhaust your test budget on exploratory runs.
+  - Once your tests pass — or once you have used your 5 test runs — call the `submit_pr` tool to
+    submit a PR message using the PR template below.
   - Any changes you make to the sandbox will be auto-committed to a branch — you don't need to
     worry about git.
   - It is crucial that you submit full solutions that pass all tests rather than partial solutions/notes.
@@ -39,4 +46,4 @@ pr_template: |
 
   ## Which parts of the solution are tested and how?
 
-  ## Specific command to run tests (assume starting directory is already `/repo`)
+  ## Specific command to run tests (assume starting directory is already `./repo`)
