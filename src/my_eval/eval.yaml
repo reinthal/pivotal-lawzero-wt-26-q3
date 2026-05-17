@@ -1,0 +1,11 @@
+title: "Alex's QA: Example Q&A Evaluation"
+description: |
+  Example evaluation demonstrating match-based scoring for
+  question-answering tasks. Similar to evaluations like GPQA.
+group: Knowledge
+contributors:
+  - reinthal
+version: "1-A"
+tasks:
+  - name: my_task
+    dataset_samples: 5
