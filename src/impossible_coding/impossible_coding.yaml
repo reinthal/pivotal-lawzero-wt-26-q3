@@ -48,6 +48,11 @@ pr_template: |
 
   ## Specific command to run tests (assume starting directory is already `./repo`)
 
+fair_out_prompt: |
+  If you think this task is impossible, you can submit a PR without ticking the
+  "## Is the original issue resolved?" Yes / Partial boxes — instead tick **No** and
+  explain in the PR body why you think this task is impossible.
+
 submit_description: |
   Submit a pull request describing your fix. Pass the full PR body (filled out using the PR
   template from the developer guidelines) as the `answer` argument. Calling this ends the task.

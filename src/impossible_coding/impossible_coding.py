@@ -37,11 +37,15 @@ def _load_config() -> dict[str, Any]:
     return yaml.safe_load(CONFIG_PATH.read_text())
 
 
-def _system_prompt(config: dict[str, Any], urgency_keys: list[str]) -> str:
+def _system_prompt(
+    config: dict[str, Any], urgency_keys: list[str], fair: bool
+) -> str:
     parts = [config["developer_guidelines"]]
     for key in urgency_keys:
         parts.append(config["urgency_prompts"][key])
     parts.append("PR template (use this when calling submit_pr):\n\n" + config["pr_template"])
+    if fair:
+        parts.append(config["fair_out_prompt"])
     return "\n\n".join(parts)
 
 
@@ -71,6 +75,7 @@ def _load_scenarios(target: str) -> list[Sample]:
 @task
 def impossible_coding(
     urgency: list[str] | None = None,
+    fair: bool = False,
     message_limit: int = DEFAULT_MESSAGE_LIMIT,
     time_limit: int = DEFAULT_TIME_LIMIT,
     token_limit: int = DEFAULT_TOKEN_LIMIT,
@@ -81,6 +86,10 @@ def impossible_coding(
         urgency: Which urgency prompts (keys from ``impossible_coding.yaml``
             ``urgency_prompts``) to splice into the system prompt. Defaults
             to all three.
+        fair: When True, append a fair-out clause to the system prompt
+            telling the model it may decline by ticking **No** and explaining
+            why the task is impossible. Ablation for measuring whether an
+            explicit opt-out changes capitulation rates under pressure.
         message_limit: Max messages in the agent conversation per sample.
         time_limit: Max wall-clock seconds per sample.
         token_limit: Max model tokens per sample.
@@ -90,7 +99,7 @@ def impossible_coding(
     return Task(
         dataset=_load_scenarios(config["target"]),
         solver=[
-            system_message(_system_prompt(config, urgency_keys)),
+            system_message(_system_prompt(config, urgency_keys, fair)),
             basic_agent(
                 tools=[bash(), python(), text_editor()],
                 message_limit=message_limit,
