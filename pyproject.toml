@@ -133,6 +133,7 @@ classifiers = [
 ]
 dependencies = [
     "inspect_ai>=0.3.158",
+    "openai>=2.37.0",
     "pyyaml>=5.1.0",
     # USER: Add your eval's dependencies here
 ]
